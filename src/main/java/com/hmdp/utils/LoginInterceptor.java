@@ -3,7 +3,7 @@ package com.hmdp.utils;
 import com.hmdp.entity.User;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
         //4.存在，保存用户信息到TreadLocal中
+
         UserHolder.saveUser((User) user);
         //5.放行
         return true;
