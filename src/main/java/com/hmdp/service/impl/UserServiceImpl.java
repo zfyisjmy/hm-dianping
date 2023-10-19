@@ -1,9 +1,11 @@
 package com.hmdp.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.dto.LoginFormDTO;
 import com.hmdp.dto.Result;
+import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.User;
 import com.hmdp.mapper.UserMapper;
 import com.hmdp.service.IUserService;
@@ -60,13 +62,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         //4.根据使用手机号查询用户是否存在
         User user = query().eq("phone", phone).one();
+
         //5.判断用户是否存在
         if (user == null){
             //6.不存在
             user = createUserWithPhone(phone);
         }
         //7.存在，保存在session中
-        session.setAttribute("user",user);
+
+        session.setAttribute("user", BeanUtil.copyProperties(user, UserDTO.class));
         return Result.ok();
     }
 

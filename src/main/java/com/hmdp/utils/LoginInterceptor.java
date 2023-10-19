@@ -1,5 +1,6 @@
 package com.hmdp.utils;
 
+import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.User;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,11 +24,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         //4.存在，保存用户信息到TreadLocal中
 
-        UserHolder.saveUser((User) user);
+        UserHolder.saveUser((UserDTO) user);
         //5.放行
         return true;
     }
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
+    //移除用户
+        UserHolder.removeUser();
     }
 }
